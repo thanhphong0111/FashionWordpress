@@ -1,0 +1,644 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Flatsome v2.7\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2017-03-15 18:44+0700\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 1.8.9\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Textdomain-Support: yes\n"
+"Last-Translator: \n"
+"Language: vi\n"
+"X-Poedit-SearchPath-0: .\n"
+
+# @ flatsome
+#: 404.php:22
+msgid "Oops! That page can&rsquo;t be found."
+msgstr "Xin lỗi.! Chúng tôi không tìm thấy trang bạn yêu cầu"
+
+# @ flatsome
+#: 404.php:27
+msgid ""
+"It looks like nothing was found at this location. Maybe try one of the links "
+"below or a search?"
+msgstr ""
+"Có vẻ như không tìn thấy gì tại địa điểm này. Có thể thẻ một trong những "
+"đường dẫn dưới đây hoặc một tìm kiếm?"
+
+# @ flatsome
+#: archive.php:40
+#, php-format
+msgid "Category Archives: %s"
+msgstr "Lưu trữ danh mục: %s"
+
+# @ flatsome
+#: archive.php:43
+#, php-format
+msgid "Tag Archives: %s"
+msgstr "Lưu trữ Tag: %s"
+
+# @ flatsome
+#: archive.php:50
+#, php-format
+msgid "Author Archives: %s"
+msgstr "Lưu trữ của tác giả: %s"
+
+# @ flatsome
+#: archive.php:58
+#, php-format
+msgid "Daily Archives: %s"
+msgstr "Lưu trữ hàng ngày: %s"
+
+# @ flatsome
+#: archive.php:61
+#, php-format
+msgid "Monthly Archives: %s"
+msgstr "Lưu trữ hàng tháng: %s"
+
+# @ flatsome
+#: archive.php:64
+#, php-format
+msgid "Yearly Archives: %s"
+msgstr "Lưu trữ hàng năm: %s"
+
+# @ flatsome
+#: archive.php:67
+msgid "Asides"
+msgstr ""
+
+# @ flatsome
+#: archive.php:70
+msgid "Images"
+msgstr "Ảnh"
+
+# @ flatsome
+#: archive.php:73
+msgid "Videos"
+msgstr ""
+
+# @ flatsome
+#: archive.php:76
+msgid "Quotes"
+msgstr ""
+
+# @ flatsome
+#: archive.php:79
+msgid "Links"
+msgstr "Đường dẫn"
+
+# @ flatsome
+#: comments.php:29
+#, php-format
+msgctxt "comments title"
+msgid "One thought on &ldquo;%2$s&rdquo;"
+msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
+msgstr[0] "%1$s bình luận trên &ldquo;%2$s&rdquo;"
+
+# @ flatsome
+#: comments.php:36 comments.php:56
+msgid "&larr; Older Comments"
+msgstr "&larr; Bình luận cũ hơn"
+
+# @ flatsome
+#: comments.php:37 comments.php:57
+msgid "Newer Comments &rarr;"
+msgstr "Bình luận mới hơn &rarr;"
+
+# @ flatsome
+#: comments.php:55
+msgid "Comment navigation"
+msgstr "Điều hướng bình luận"
+
+# @ flatsome
+#: comments.php:67
+msgid "Comments are closed."
+msgstr "Bình luận đã bị đóng."
+
+# @ flatsome
+#: content-page.php:17 content-single.php:33 content.php:47 image.php:92
+#: page-left-sidebar-notitle.php:22 page-right-sidebar-notitle.php:22
+msgid "Pages:"
+msgstr "Trang:"
+
+# @ flatsome
+#. translators: used between list items, there is a space after the comma
+#: content-single.php:51 content-single.php:54 content.php:58 content.php:66
+#: content.php:109 content.php:117 content.php:167 content.php:187
+msgid ", "
+msgstr ""
+
+# @ flatsome
+#: content-single.php:59
+#, php-format
+msgid "This entry was posted in %1$s and tagged %2$s."
+msgstr "Mục này đã được đăng trong %1$s và được gắn thẻ %2$s."
+
+# @ flatsome
+#: content-single.php:61
+#, php-format
+msgid ""
+"This entry was posted in %1$s. Bookmark the <a href=\"%3$s\" title="
+"\"Permalink to %4$s\" rel=\"bookmark\">permalink</a>."
+msgstr ""
+"Mục nhập này đã được đăng trong %1$s. Đánh dấu <a href=\"%3$s\" title="
+"\"Đường dẫn tĩnh tới %4$s\" rel=\"bookmark\">đường dẫn tĩnh</a>."
+
+# @ flatsome
+#: content.php:44
+msgid "Continue reading <span class=\"meta-nav\">&rarr;</span>"
+msgstr "Đọc tiếp <span class=\"meta-nav\">&rarr;</span>"
+
+# @ flatsome
+#: content.php:61
+#, php-format
+msgid "Posted in %1$s"
+msgstr "Được đăng trên %1$s"
+
+# @ flatsome
+#: content.php:71 content.php:122 content.php:192
+#, php-format
+msgid "Tagged %1$s"
+msgstr "Được gắn thẻ %1$s"
+
+# @ flatsome
+#: content.php:77 content.php:133 content.php:181
+#: inc/widgets/recent-posts.php:59
+msgid "Leave a comment"
+msgstr "Để lại bình luận"
+
+# @ flatsome
+#: content.php:77 content.php:133 content.php:181
+#: inc/widgets/recent-posts.php:59
+msgid "<strong>1</strong> Comment"
+msgstr "<strong>1</strong> Bình luận"
+
+# @ flatsome
+#: content.php:77 content.php:133 content.php:181
+#: inc/widgets/recent-posts.php:59
+msgid "<strong>%</strong> Comments"
+msgstr "<strong>%</strong> Bình luận"
+
+# @ flatsome
+#: content.php:112 content.php:170
+#, php-format
+msgid "%1$s"
+msgstr ""
+
+# @ flatsome
+#: functions.php:213
+msgid "Main Menu"
+msgstr "Trình đơn chính"
+
+# @ flatsome
+#: functions.php:214
+msgid "Footer Menu"
+msgstr "Trình đơn chân trang"
+
+# @ flatsome
+#: functions.php:215
+msgid "Top bar Menu"
+msgstr "Trình đơn thanh trên cùng"
+
+# @ flatsome
+#: functions.php:216
+msgid "My Account Menu"
+msgstr "Trình đơn Tài khoản của tôi"
+
+# @ flatsome
+#: functions.php:231
+msgid "Sidebar"
+msgstr "Thanh bên"
+
+# @ flatsome
+#: functions.php:241
+msgid "Shop Sidebar"
+msgstr "Thanh bên Cửa hàng"
+
+# @ flatsome
+#: functions.php:250
+msgid "Product Sidebar"
+msgstr "Thanh bên Sản phẩm"
+
+# @ flatsome
+#: functions.php:260
+msgid "Footer 1 (4 column)"
+msgstr "Chân trang 1 (4 cột)"
+
+# @ flatsome
+#: functions.php:270
+msgid "Footer 2 (4 column)"
+msgstr "Chân trang 2 (4 cột)"
+
+# @ default
+#: functions.php:349
+msgid "Flatsome Theme Options"
+msgstr "Tùy chọn giao diện VIFONIC"
+
+# @ flatsome
+#: image.php:25
+#, php-format
+msgid ""
+"Published <span class=\"entry-date\"><time class=\"entry-date\" datetime="
+"\"%1$s\">%2$s</time></span> at <a href=\"%3$s\" title=\"Link to full-size "
+"image\">%4$s &times; %5$s</a> in <a href=\"%6$s\" title=\"Return to %7$s\" "
+"rel=\"gallery\">%8$s</a>"
+msgstr ""
+"Đã công khai <span class=\"entry-date\"><time class=\"entry-date\" datetime="
+"\"%1$s\">%2$s</time></span> lúc <a href=\"%3$s\" title=\"Kết nối tới ảnh "
+"kích thược tối đa\">%4$s &times; %5$s</a> trong <a href=\"%6$s\" title=\"Trở "
+"lại %7$s\" rel=\"gallery\">%8$s</a>"
+
+# @ flatsome
+#: image.php:36 image.php:109 inc/template-tags.php:77
+#: inc/template-tags.php:106
+msgid "Edit"
+msgstr "Sửa"
+
+# @ flatsome
+#: image.php:101
+#, php-format
+msgid ""
+"<a class=\"comment-link\" href=\"#respond\" title=\"Post a comment\">Post a "
+"comment</a> or leave a trackback: <a class=\"trackback-link\" href=\"%s\" "
+"title=\"Trackback URL for your post\" rel=\"trackback\">Trackback URL</a>."
+msgstr ""
+"<a class=\"comment-link\" href=\"#respond\" title=\"Đăng một bình luận"
+"\">Đăng một bình luận</a> hoặc để lại một trackback: <a class=\"trackback-"
+"link\" href=\"%s\" title=\"Liên kết Trackback cho bài viết của bạn\" rel="
+"\"trackback\">Liên kết Trackback</a>."
+
+# @ flatsome
+#: image.php:103
+#, php-format
+msgid ""
+"Comments are closed, but you can leave a trackback: <a class=\"trackback-link"
+"\" href=\"%s\" title=\"Trackback URL for your post\" rel=\"trackback"
+"\">Trackback URL</a>."
+msgstr ""
+"Bình luận đã đóng, nhưng bạn có thể để lại trackbacks <a class=\"trackback-"
+"link\" href=\"%s\" title=\"Trackback URL cho bài viết của bạn\" rel="
+"\"trackback\">Trackback URL</a>."
+
+# @ flatsome
+#: image.php:105
+msgid ""
+"Trackbacks are closed, but you can <a class=\"comment-link\" href=\"#respond"
+"\" title=\"Post a comment\">post a comment</a>."
+msgstr ""
+"Trackbacks bị đóng, nhưng bạn có thể <a class=\"comment-link\" href="
+"\"#respond\" title=\"Đăng bình luận\"> đăng bình luật </a>."
+
+# @ flatsome
+#: image.php:107
+msgid "Both comments and trackbacks are currently closed."
+msgstr "Cả bình luận và trackbacks đều đóng."
+
+# @ flatsome
+#: image.php:114 woocommerce/single-product-reviews.php:59
+msgid "<span class=\"meta-nav\">&larr;</span> Previous"
+msgstr "<span class=\"meta-nav\">&larr;</span> Trước"
+
+# @ flatsome
+#: image.php:115 woocommerce/single-product-reviews.php:60
+msgid "Next <span class=\"meta-nav\">&rarr;</span>"
+msgstr "Sau <span class=\"meta-nav\">&rarr;</span>"
+
+# @ flatsome
+#: inc/custom-css.php:176
+msgid "New"
+msgstr "Mới"
+
+# @ flatsome
+#: inc/woocommerce/tempalte-tags-global:36
+msgid "Home"
+msgstr "Trang chủ"
+
+# @ flatsome
+#: inc/custom-css.php:177
+msgid "Hot"
+msgstr ""
+
+# @ flatsome
+#: inc/custom-css.php:178
+msgid "Sale"
+msgstr "Giảm giá"
+
+# @ flatsome
+#: inc/custom-css.php:179
+msgid "Popular"
+msgstr "Phổ biến nhất"
+
+# @ flatsome
+#: inc/extras.php:101
+#, php-format
+msgid "Page %s"
+msgstr "Trang %s"
+
+# @ pippin
+#: inc/extras.php:120
+msgid "Top Content"
+msgstr "Nội dung trên"
+
+# @ pippin
+#: inc/extras.php:126
+msgid ""
+"Enter a value for this field. Shortcodes are allowed. This will be displayed "
+"at top of the category."
+msgstr ""
+"Nhập một giá trị cho trường này. Shortcode được cho phép. Nó sẽ được hiển "
+"thị ở trên cùng của danh mục"
+
+# @ default
+#: inc/post-types/blocks.php:30
+#: inc/widgets/woocommerce-subcategories-widget.php:108
+msgid "Title"
+msgstr "Tiêu đề"
+
+# @ default
+#: inc/post-types/blocks.php:33
+msgid "Shortcode"
+msgstr ""
+
+# @ default
+#: inc/post-types/blocks.php:35
+msgid "Date"
+msgstr "Ngày"
+
+# @ flatsome
+#: inc/shortcodes/share_follow.php:21
+msgid "Share on Facebook"
+msgstr "Chia sẻ trên Facebook"
+
+# @ flatsome
+#: inc/shortcodes/share_follow.php:24
+msgid "Share on Twitter"
+msgstr "Chia sẻ trên Twitter"
+
+# @ flatsome
+#: inc/shortcodes/share_follow.php:27
+msgid "Email to a Friend"
+msgstr "Gửi tới 1 người bạn"
+
+# @ flatsome
+#: inc/shortcodes/share_follow.php:30
+msgid "Pin on Pinterest"
+msgstr "Ghim trên Pinterest"
+
+# @ flatsome
+#: inc/shortcodes/share_follow.php:33
+msgid "Share on Google+"
+msgstr "Chia sẻ trên Google+"
+
+# @ flatsome
+#: inc/shortcodes/share_follow.php:33
+msgid "Share on Tumblr"
+msgstr "Chia sẻ trên Tumblr"
+
+# @ flatsome
+#: inc/shortcodes/share_follow.php:73
+msgid "Follow on Facebook"
+msgstr "Theo dõi trên Facebook"
+
+# @ flatsome
+#: inc/shortcodes/share_follow.php:103
+msgid "Follow on YouTube"
+msgstr "Theo dõi trên Youtube"
+
+# @ flatsome
+#: inc/shortcodes/share_follow.php:76
+msgid "Follow on Twitter"
+msgstr "Theo dõi trên Twitter"
+
+# @ flatsome
+#: inc/shortcodes/share_follow.php:79
+msgid "Follow on SnapChat"
+msgstr "Theo dõi trên SnapChat"
+
+# @ flatsome
+#: inc/shortcodes/share_follow.php:79
+msgid "Send us an email"
+msgstr "Gửi chúng tôi một e-mail"
+
+# @ flatsome
+#: inc/shortcodes/share_follow.php:82
+msgid "Follow on Pinterest"
+msgstr "Theo dõi trên Pinterest"
+
+# @ flatsome
+#: inc/shortcodes/share_follow.php:85
+msgid "Follow on Google+"
+msgstr "Theo dõi trên Google+"
+
+# @ flatsome
+#: inc/shortcodes/share_follow.php:88
+msgid "Follow on Instagram"
+msgstr "Theo dõi trên Instagram"
+
+# @ flatsome
+#: inc/shortcodes/share_follow.php:91
+msgid "Subscribe to RSS"
+msgstr "Đăng ký RSS"
+
+# @ flatsome
+#: inc/shortcodes/share_follow.php:94
+msgid "LinkedIn"
+msgstr ""
+
+# @ flatsome
+#: inc/shortcodes/share_follow.php:97
+msgid "YouTube"
+msgstr ""
+
+# @ flatsome
+#: inc/shortcodes/share_follow.php:100
+msgid "Flickr"
+msgstr ""
+
+# @ flatsome
+#: inc/template-tags.php:49
+msgid "<span class=\"icon-angle-left\"></span> Older posts"
+msgstr "<span class=\"icon-angle-left\"></span> Bài viết cũ"
+
+# @ flatsome
+#: inc/template-tags.php:53
+msgid "Newer posts <span class=\"icon-angle-right\"></span>"
+msgstr "Bài viết mới hơn <span class=\"icon-angle-right\"></span>"
+
+# @ flatsome
+#: inc/template-tags.php:77
+msgid "Pingback:"
+msgstr ""
+
+# @ flatsome
+#: inc/template-tags.php:93
+#, php-format
+msgid "%s <span class=\"says\">says:</span>"
+msgstr "%s <span class=\"says\">Nói:</span>"
+
+# @ flatsome
+#: inc/template-tags.php:95
+msgid "Your comment is awaiting moderation."
+msgstr "Bình luận của bạn đang chờ được kiểm duyệt"
+
+# @ flatsome
+#: inc/template-tags.php:104
+#, php-format
+msgctxt "1: date, 2: time"
+msgid "%1$s at %2$s"
+msgstr "%1$s lúc %2$s"
+
+# @ flatsome
+#: inc/template-tags.php:86
+#, php-format
+msgctxt "post date"
+msgid "Posted on %s"
+msgstr "Được đăng trên %s"
+
+# @ flatsome
+#: inc/template-tags.php:91
+#, php-format
+msgctxt "post author"
+msgid "by %s"
+msgstr "bởi %s"
+
+# @ flatsome
+#: inc/template-tags.php:147
+#, php-format
+msgid "View all posts by %s"
+msgstr "Xem tất cả bài viết của %s"
+
+# @ default
+#: inc/template-tags.php:376
+msgid "Previous Post"
+msgstr "Bài viết trước"
+
+# @ default
+#: inc/template-tags.php:376
+msgid "Next Post"
+msgstr "Bài viết sau"
+
+# @ flatsome
+#: search.php:35
+#, php-format
+msgid "Search Results for: %s"
+msgstr "ết quả tìm kiếm cho: %s"
+
+# @ flatsome
+#: searchform.php:11
+msgid "Search"
+msgstr "Tìm kiếm"
+
+# @ flatsome
+#: inc/widgets/recent-posts.php:41
+msgid "Recent Posts"
+msgstr "Bài viết gần đây"
+
+# @ flatsome
+#: inc/widgets/recent-posts.php:98
+msgid "Number of posts to show:"
+msgstr "Số bài viết được hiển thị:"
+
+# @ text_domain
+#: inc/widgets/upsell-widget.php:20
+msgid "Add upsell products to product page"
+msgstr "Thêm sản phẩm bán thêm đến trang sản phẩm"
+
+# @ text_domain
+# @ flatsome
+#: inc/widgets/upsell-widget.php:105 woocommerce/single-product/up-sells.php:40
+msgid "Complete the look"
+msgstr "Hoàn tất"
+
+# @ flatsome
+#: no-results.php:13
+msgid "Nothing Found"
+msgstr "Không tìn thấy gì!"
+
+# @ flatsome
+#: no-results.php:19
+#, php-format
+msgid ""
+"Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgstr ""
+"Sẵn sàng đăng bài viết đầu tiên của bạn? <a href=\"%1$s\">Bắt đầu tại đây</"
+"a>."
+
+# @ flatsome
+#: no-results.php:23
+msgid ""
+"Sorry, but nothing matched your search terms. Please try again with some "
+"different keywords."
+msgstr ""
+"Xin lỗi, nhưng không có kết quả nào phù hợp. Hãy thử lại với từ khóa khác."
+
+# @ flatsome
+#: no-results.php:28
+msgid ""
+"It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps "
+"searching can help."
+msgstr ""
+"Dường như chúng tôi không thể tìm thấy thứ bạn đang tìm kiếm. Có lẽ trình "
+"tìm kiếm có thể giúp."
+
+# @ flatsome
+#: page-checkout.php:17 page-checkout.php:28
+msgid "Shopping Cart"
+msgstr "Giỏ hàng"
+
+# @ flatsome
+#: page-checkout.php:19 page-checkout.php:30
+msgid "Checkout details"
+msgstr "Chi tiết thanh toán"
+
+# @ flatsome
+#: page-checkout.php:21 page-checkout.php:32
+msgid "Order Complete"
+msgstr "Đặt hàng hoàn tất"
+
+# @ flatsome
+#: page-my-account.php:30 woocommerce/checkout/form-checkout.php:41
+msgid "Login / Register with <strong>Facebook</strong>"
+msgstr "Đăng nhập / Đăng ký bằng <strong>Facebook</strong>"
+
+# @ flatsome
+#: woocommerce/myaccount/header.php:33
+msgid "Login with <strong>Facebook</strong>"
+msgstr "Đăng nhập bằng <strong>Facebook</strong>"
+
+# @ flatsome
+#: woocommerce/myaccount/header.php:42
+msgid "Login with <strong>Google</strong>"
+msgstr "Đăng nhập bằng <strong>Google</strong>"
+
+# @ flatsome
+#: content-product.php:61 woocommerce/content-product.php:61
+msgid "Quick View"
+msgstr "Xem nhanh"
+
+# @ flatsome
+#: structure-wc-product-page.php:149 woocommerce/content-product.php:149
+msgid "Zoom"
+msgstr "Thu phóng"
+
+# @ flatsome
+#: structure-wc-global.php:188 inc/woocommerce/structure-wc-global.php:188
+msgid "Pages and posts found"
+msgstr "Tìm thấy trang và bài viết"
+
+# @ flatsome
+#: structure-wc-global.php:139 inc/shortcodes/portfolio.php:139
+msgid "All"
+msgstr "Tất cả"
+
+# @ flatsome
+#: flatsome-live-search.php:129 inc/shortcodes/portfolio.php:129
+msgid "No matches found"
+msgstr "Không tìm thấy kết quả phù hợp"
