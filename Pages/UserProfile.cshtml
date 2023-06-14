@@ -1,0 +1,172 @@
+﻿@page
+@using System.Text.Json.Serialization;
+
+@model Group1_CourseOnline.Pages.UserProfileModel
+@{
+    ViewBag.Title = "User Profile";
+    Layout = "~/Pages/Shared/_Layout2.cshtml";
+    
+}
+
+
+<div class="container p-0">
+    <h1 class="h3 mb-3">Settings</h1>
+    <div class="row">
+        <div class="col-md-5 col-xl-4">
+            <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Profile Settings</h5>
+            </div>
+             <div class="list-group list-group-flush" role="tablist">
+                <a class="list-group-item list-group-item-action active" asp-page="UserProfile">Account</a>
+                    @{
+                        
+                        var serializedAccount = HttpContext.Session.GetString("Account");
+                        var options = new JsonSerializerOptions
+                         {
+                            ReferenceHandler = ReferenceHandler.Preserve
+                         };
+                        var account = string.IsNullOrEmpty(serializedAccount) ? null : JsonSerializer.Deserialize<Account>(serializedAccount, options);
+                        if (account != null && account.IsSocialAccount == false) {
+                             <a class="list-group-item list-group-item-action" asp-page="ChangePassword">Password</a>
+                        }
+                     }
+                <a class="list-group-item list-group-item-action" asp-page="Bought">Bought</a>
+            </div>
+        </div>
+    </div>
+
+        <div class="col-md-7 col-xl-8">
+            <div class="card">
+                <div class="card-body">
+                    <p class="text-danger">@ViewBag.fail</p>
+                    <p class="text-success">@ViewBag.success</p>
+                    <form method="post" enctype="multipart/form-data">
+                        @if (HttpContext.Session.GetString("customer") != null)
+                        {
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label for="inputUsername">Firstname</label>
+                                        <input type="text" class="form-control" id="inputUsername" asp-for="Customers.FirstName" placeholder="Firstname">
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputUsername">Lastname</label>
+                                        <input type="text" class="form-control" id="inputUsername" asp-for="Customers.LastName" placeholder="Lastname">
+                                    </div>
+
+                                </div>
+                                <div class="col-md-4 d-block">
+                                    <div class="text-center">
+                                        <img id="preview" src="@Model.Customers.Avatar" class="rounded-circle img-responsive mt-2 ml-20" width="140" height="140" style="display: block; max-width: 140px; max-height: 140px;" />
+                                        <div class="row justify-content-center mt-10">
+                                            <input type="file" id="imageFile" name="imageFile" accept=".jpg, .jpeg, .png" onchange="previewImage(event)" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputFirstName">Phone</label>
+                                    <input type="text" class="form-control" id="inputFirstName" asp-for="Customers.Phone" placeholder="Phone">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail4">Email</label>
+                                <input type="email" class="form-control" id="inputEmail4" asp-for="Accounts.Email" placeholder="Email" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputAddress">Address</label>
+                                <input type="text" class="form-control" id="inputAddress" asp-for="Customers.Address" placeholder="1234 Main St">
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="inputCity">Date Of Birth</label>
+                                    <input type="date" class="form-control" id="inputdate" asp-for="Customers.BirthDate">
+                                </div>
+
+
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        }
+                        else if (HttpContext.Session.GetString("employee") != null)
+                        {
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label for="inputUsername">Firstname</label>
+                                        <input type="text" class="form-control" id="inputUsername" asp-for="Customers.FirstName" placeholder="Firstname">
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputUsername">Lastname</label>
+                                        <input type="text" class="form-control" id="inputUsername" asp-for="Customers.LastName" placeholder="Lastname">
+                                    </div>
+
+                                </div>
+                                <div class="col-md-4 d-block">
+                                    <div class="text-center">
+                                        <img alt="Andrew Jones" src="https://bootdey.com/img/Content/avatar/avatar1.png" class="rounded-circle img-responsive mt-2" width="128" height="128">
+                                        <div class="row justify-content-center">
+                                            <input style="color: black; float:right" type='file' name="fileUpload" />
+                                        </div>
+                                        <small>For best results, use an image at least 128px by 128px in .jpg format</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputFirstName">Phone</label>
+                                    <input type="text" class="form-control" id="inputFirstName" asp-for="Customers.Phone" placeholder="Phone">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail4">Email</label>
+                                <input type="email" class="form-control" id="inputEmail4" asp-for="Accounts.Email" placeholder="Email" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputAddress">Address</label>
+                                <input type="text" class="form-control" id="inputAddress" asp-for="Customers.Address" placeholder="1234 Main St">
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="inputCity">Date Of Birth</label>
+                                    <input type="date" class="form-control" id="inputdate" asp-for="Customers.BirthDate">
+                                </div>
+
+
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        }
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+<script>
+function previewImage(event) {
+  var input = event.target;
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+      var preview = document.getElementById('preview');
+      preview.src = e.target.result;
+      preview.style.display = 'block';
+    };
+
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+</script>
+
+

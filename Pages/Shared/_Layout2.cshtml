@@ -1,0 +1,289 @@
+﻿@inject SWP391_BlueEduContext _db
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewBag.Title</title>
+    <link rel="shortcut icon" href="~/img/fav.png">
+    <meta name="author" content="colorlib">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/linearicons.css">
+    <link rel="stylesheet" href="~/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/bootstrap.css">
+    <link rel="stylesheet" href="~/css/magnific-popup.css">
+    <link rel="stylesheet" href="~/css/nice-select.css">
+    <link rel="stylesheet" href="~/css/animate.min.css">
+    <link rel="stylesheet" href="~/css/owl.carousel.css">
+    <link rel="stylesheet" href="~/css/jquery-ui.css">
+    <link rel="stylesheet" href="~/assets/css/main.css">
+
+    <style>
+        #scrollable-content {
+            height: 500px; /* Chiều cao cố định của phần tử */
+            overflow-y: scroll; /* Kích hoạt thanh cuộn dọc */
+            scrollbar-width: thin; /* Độ dày của thanh cuộn (tùy chọn) */
+            scrollbar-color: #888888 #F0F0F0; /* Màu sắc của thanh cuộn (tùy chọn) */
+        }
+        .nav-menu a {
+            color: black;
+            font-size: 14px;
+        }
+
+        .header-scrolled .nav-menu.nav-menu a {
+            font-size: 14px;
+            color: white;
+        }
+
+        
+        .navbar-nav a {
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .navbar-toggler-icon{
+            color:black ;
+        }
+
+        button{
+            background-color: #007bff !important;
+            color:white!important;
+        }
+        .card {
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 15px 1px rgba(52,40,104,.08);
+        }
+
+        .card {
+            position: relative;
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 1px solid #e5e9f2;
+            border-radius: .2rem;
+        }
+
+        .card-header:first-child {
+            border-radius: calc(.2rem - 1px) calc(.2rem - 1px) 0 0;
+        }
+
+        .card-header {
+            border-bottom-width: 1px;
+        }
+
+        .card-header {
+            padding: .75rem 1.25rem;
+            margin-bottom: 0;
+            color: inherit;
+            background-color: #fff;
+            border-bottom: 1px solid #e5e9f2;
+        }
+    </style>
+</head>
+<body>
+    <header class="position-sticky " id="header" id="home">
+        <div class="header-top bg-primary">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-sm-6 col-8 header-top-left no-padding">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                            <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                        </ul>
+                    </div>
+                    @{
+                        string? admin = Context.Session.GetString("admin");
+                        string? customer = Context.Session.GetString("customer");
+                        string? email = Context.Session.GetString("email");
+                    }
+                    <div class="col-lg-6 col-sm-6 col-4 header-top-right no-padding">
+                        @if (admin == null && customer == null)
+                        {
+                            <a href="Login"><span class="lnr lnr-envelope"></span> <span class="text">Login</span></a>
+                            <a href="Register"><span class="lnr lnr-envelope"></span> <span class="text">Register</span></a>
+                        }
+
+                        @if (admin != null || customer != null)
+                        {
+                            <div class="btn-group">
+                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-user"></i> @email
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a asp-page="UserProfile" style="color:black" class="dropdown-item">Profile</a>
+                                    <a asp-page="Logout" class="dropdown-item" style="color:black">Logout</a>
+                                </div>
+                            </div>
+
+                        }
+                        
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container main-menu">
+            <div class="row align-items-center justify-content-between d-flex">
+                <div id="logo">
+                    <a asp-page="Index"><h1 class="text-primary"><img style="width:50px" src="img/logo_BlueEdu.png" alt="" title="" />BlueEdu</h1></a>
+                </div>
+                <nav id="nav-menu-container">
+                    <ul class="nav-menu">
+                        @{
+                            List<Menu> menus = _db.Menus.Where(m => m.Status == true).ToList();
+                            foreach (var menu in menus)
+                            {
+                                <li><a href="@menu.Url">@menu.MenuName</a></li>
+                            }
+                        }
+                    </ul>
+                </nav><!-- #nav-menu-container -->
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="row">
+            
+                <div class="row col-12 m-auto bg-primary py-1">
+                    <div class="col-3 text-center d-flex mt-1">
+                    <button class="navbar-toggler btn btn-primary" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+                            aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="fa fa-navicon"></span>
+                    </button>
+                    <h3 class="text-white ml-1">
+                        Category</h3>
+                        <!-- Collapsible content -->
+                        <!--/.Navbar-->
+                    </div>
+                    <div class="col-9 align-content-end">
+                        <form method="get" asp-page="search">
+                            <div class="d-flex m-auto">
+                            <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" value="">
+                            <button class="btn bg-white text-dark my-2 my-sm-0" type="submit"><i class="fa fa-search"></i></button>
+                        </div>
+                        </form>
+                       
+                    </div>
+                </div>
+           
+        </div>
+    </div>
+    @RenderBody()
+    <footer class="footer-area section-gap">
+        <div class="container">
+            <div class="row pt-4">
+                <div class="col-lg-2 col-md-6 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h4>Top Products</h4>
+                        <ul>
+                            <li><a href="#">Managed Website</a></li>
+                            <li><a href="#">Manage Reputation</a></li>
+                            <li><a href="#">Power Tools</a></li>
+                            <li><a href="#">Marketing Service</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h4>Quick links</h4>
+                        <ul>
+                            <li><a href="#">Jobs</a></li>
+                            <li><a href="#">Brand Assets</a></li>
+                            <li><a href="#">Investor Relations</a></li>
+                            <li><a href="#">Terms of Service</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h4>Features</h4>
+                        <ul>
+                            <li><a href="#">Jobs</a></li>
+                            <li><a href="#">Brand Assets</a></li>
+                            <li><a href="#">Investor Relations</a></li>
+                            <li><a href="#">Terms of Service</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="#">Guides</a></li>
+                            <li><a href="#">Research</a></li>
+                            <li><a href="#">Experts</a></li>
+                            <li><a href="#">Agencies</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4  col-md-6 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h4>Newsletter</h4>
+                        <p>Stay update with our latest</p>
+                        <div class="" id="mc_embed_signup">
+                            <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="EMAIL" placeholder="Enter Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Email Address '" required="" type="email">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default" type="submit">
+                                            <span class="lnr lnr-arrow-right"></span>
+                                        </button>
+                                    </div>
+                                    <div class="info"></div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom row align-items-center justify-content-between">
+                <p class="footer-text m-0 col-lg-6 col-md-12">
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This is a project developed by Group 1
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                </p>
+                <div class="col-lg-6 col-sm-12 footer-social">
+                    <a href="#"><i class="fa fa-facebook"></i></a>
+                    <a href="#"><i class="fa fa-twitter"></i></a>
+                    <a href="#"><i class="fa fa-dribbble"></i></a>
+                    <a href="#"><i class="fa fa-behance"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        window.addEventListener("DOMContentLoaded", function () {
+            var autoClickButton = document.getElementById("navbarDropdownMenuLink");
+            if (autoClickButton) {
+                autoClickButton.click();
+            }
+        });
+    </script>
+    <script src="~/js/vendor/jquery-2.2.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="~/js/vendor/bootstrap.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
+    <script src="~/js/easing.min.js"></script>
+    <script src="~/js/hoverIntent.js"></script>
+    <script src="~/js/superfish.min.js"></script>
+    <script src="~/js/jquery.ajaxchimp.min.js"></script>
+    <script src="~/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/js/jquery.tabs.min.js"></script>
+    <script src="~/js/jquery.nice-select.min.js"></script>
+    <script src="~/js/owl.carousel.min.js"></script>
+    <script src="~/js/mail-script.js"></script>
+    <script src="~/js/main.js"></script>
+    
+    
+</body>
+</html>

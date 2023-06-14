@@ -1,0 +1,269 @@
+﻿@page
+@model Group1_CourseOnline.Pages.CourseDetailsModel
+@{
+    var Product = Model.Products;
+    ViewData["Title"] = Product.ProductName;
+    int lessonid;
+}
+<section class="course-details-area mt-3">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-lg-8 left-contents">
+                <div class="jq-tab-wrapper" id="horizontalTab">
+                    <div class="jq-tab-menu">
+                        <div class="jq-tab-title active" data-tab="1">Objectives</div>
+                        <div class="jq-tab-title" data-tab="2">Course Outline</div>
+                        <div class="jq-tab-title" data-tab="3">Course Video</div>
+                        <div class="jq-tab-title" data-tab="5">Reviews</div>
+                    </div>
+                    <div class="jq-tab-content-wrapper mt-0">
+                        <div class="jq-tab-content active" data-tab="1">
+                            @Product.ProductDescription
+                            <br>
+                        </div>
+                        <div class="jq-tab-content" id="scrollable-content" data-tab="3">
+                            <ul class="course-list">
+                                @foreach (var item in Model.LessonVideos)
+                                {
+                                    <li class="justify-content-between d-flex">
+                                        <a class="primary-btn text-uppercas jq-tab-title w-100" data-tab="3"><p>@item.VideoName</p></a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="jq-tab-content" id="scrollable-content" data-tab="2">
+                            <ul class="course-list">
+                                @foreach (var item in Model.Lessons)
+                                {
+                                    <li class="justify-content-between d-flex">
+
+                                        <a class="primary-btn text-uppercas jq-tab-title w-100" data-tab="3"><p>@item.LessonName</p></a>
+                                    </li>
+                                }
+
+
+
+                            </ul>
+                        </div>
+                       
+                        <div class="jq-tab-content" data-tab="5">
+                            @if (Model.CheckOwn==true)
+                            {
+
+                                <div class="review-top row pt-40">
+
+                                    <div class="col-lg-3">
+                                        <div class="avg-review">
+                                            Average <br>
+                                            <span>5.0</span> <br>
+                                            (3 Ratings)
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <h4 class="mb-20">Provide Your Rating</h4>
+                                        <div class="d-flex flex-row reviews">
+                                            <span>Quality</span>
+                                            <div class="star">
+                                                <i class="fa fa-star checked"></i>
+                                                <i class="fa fa-star checked"></i>
+                                                <i class="fa fa-star checked"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                            </div>
+                                            <span>Outstanding</span>
+                                        </div>
+                                        <div class="d-flex flex-row reviews">
+                                            <span>Puncuality</span>
+                                            <div class="star">
+                                                <i class="fa fa-star checked"></i>
+                                                <i class="fa fa-star checked"></i>
+                                                <i class="fa fa-star checked"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                            </div>
+                                            <span>Outstanding</span>
+                                        </div>
+                                        <div class="d-flex flex-row reviews">
+                                            <span>Quality</span>
+                                            <div class="star">
+                                                <i class="fa fa-star checked"></i>
+                                                <i class="fa fa-star checked"></i>
+                                                <i class="fa fa-star checked"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                            </div>
+                                            <span>Outstanding</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <form method="post" asp-page="Comments">
+                                    <div class="feedeback">
+                                        <h4 class="pb-20">Your Feedback</h4>
+                                        <input type="number" name="id" value="@Model.Products.ProductId" hidden />
+                                        <textarea name="feedback" class="form-control" cols="10" rows="10"></textarea>
+                                        <button type="submit" class="mt-20 primary-btn text-right text-uppercase">Submit</button>
+                                    </div>
+                                </form>
+
+                            }
+                            <div class="comments-area mb-30">
+                                @foreach (var item in ViewBag.Comments)
+                                {
+                                    <div class="comment-list">
+                                        <div class=" single-comment single-reviews d-flex w-lg-100">
+                                            <div class="row user d-flex" style="width:100%">
+                                                <div class="col-2 thumb">
+                                                    <img class="w-100" src="@item.Image" alt="">
+                                                </div>
+                                                <div class="col-6">
+                                                    <h5 class="align-content-between">
+                                                        <a href="#">@item.FirstName @item.LastName</a>
+
+                                                    </h5>
+                                                    <p class="comment">
+                                                        @item.Content
+                                                    </p>
+                                                </div>
+                                                <div class="col-3 star">
+                                                    @for (int i = 1; i <= 5; i++)
+                                                    {
+                                                        if (i <= item.Rating)
+                                                        {
+                                                            <span class="fa fa-star checked"></span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="fa fa-star"></span>
+
+                                                        }
+
+                                                    }
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 right-contents mt-5">
+                <div class="main-image">
+                    <img class="img-fluid w-100" src="@Product.Image" alt="">
+                </div>
+                <ul>
+                    <li>
+                        <a class="justify-content-between d-flex" href="#">
+                            <p>Trainer’s Name</p>
+                            <span class="or">@Product.Employee.FirstName @Product.Employee.LastName</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="justify-content-between d-flex" href="#">
+                            <p>Course Fee </p>
+                            <span>$ @Product.UnitPrice</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="justify-content-between d-flex" href="#">
+                            <p>Available Seats </p>
+                            <span>@Product.UnitOfQuantitySold</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="justify-content-between d-flex" href="#">
+                            <p>Schedule </p>
+                            <span>2.00 pm to 4.00 pm</span>
+                        </a>
+                    </li>
+                </ul>
+                @if (Model.CheckOwn == false)
+                {
+                    <a href="#" class="primary-btn bg-primary text-uppercase">Enroll the course</a>
+                }
+                else
+                {
+                    <a href="#" class="primary-btn bg-primary text-uppercase">Learning</a>
+                }
+
+                    
+                    
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End course-details Area -->
+<!-- Start popular-courses Area -->
+<section class="popular-courses-area section-gap courses-page">
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="menu-content pb-20 col-lg-8">
+                <div class="title text-center">
+                    <h1 class="mb-4 mt-4">Related Courses</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="active-popular-carusel">
+
+                @foreach (var item in ViewBag.product)
+                {
+                    <div class="card single-popular-carusel">
+                        <div class=card-img thumb-wrap relative">
+                            <div class="thumb relative">
+                                <div class="overlay overlay-bg"></div>
+                                <img class="img-fluid" src="@item.Image" alt="">
+                            </div>
+
+                        </div>
+                        <div class="card-body">
+
+                            <div class="text-wrap thumb relative" style="height:100px;">
+                                <a asp-route-productid="@item.ProductId"> <h4 class="text-uppercase text-3xl text-dark">@item.ProductName</h4></a>
+                            </div>
+
+                            <div>
+                                By<a href="#"> @item.Employee.FirstName@item.Employee.LastName</a>
+                                <hr>
+
+                                <div class="d-flex justify-content-between">
+                                    <p><span class="lnr lnr-users"></span> 355  | <span class="lnr lnr-bubble"></span> @item.Cmt   | <span class="lnr lnr-eye"> @item.Views</span></p>
+                                    <h5 class="text-success" style="margin-top:2px">$ @item.UnitPrice</h5>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    var myElement = document.getElementById('simple-bar');
+    new SimpleBar(myElement, { autoHide: true });
+
+    function reloadData() {
+        fetch('/CourseDetails?productid=@Model.Products.ProductId', { method: 'GET' })
+            .then(function (response) {
+                if (response.ok) {
+                    // Tải lại trang
+                    window.location.reload();
+                } else {
+                    console.error('Error reloading data:', response.statusText);
+                }
+            })
+            .catch(function (error) {
+                console.error('Error reloading data:', error);
+            });
+    }
+
+    setInterval(reloadData, 10000);
+</script>

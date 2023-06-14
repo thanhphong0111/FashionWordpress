@@ -1,0 +1,445 @@
+﻿@page
+@model Group1_CourseOnline.Pages.Admin.Teachers.IndexModel
+@{
+    Layout = "~/Pages/Shared/_Layout1.cshtml";
+    int count = 1;
+}
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+<!-- Style của confirm xóa -->
+<style>
+    body {
+        font-family: 'Varela Round', sans-serif;
+    }
+
+    .modal-confirm {
+        color: #636363;
+        width: 400px;
+    }
+
+        .modal-confirm .modal-content {
+            padding: 20px;
+            border-radius: 5px;
+            border: none;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .modal-confirm .modal-header {
+            border-bottom: none;
+            position: relative;
+        }
+
+        .modal-confirm h4 {
+            text-align: center;
+            font-size: 26px;
+            margin: 30px 0 -10px;
+        }
+
+        .modal-confirm .close {
+            position: absolute;
+            top: -5px;
+            right: -2px;
+        }
+
+        .modal-confirm .modal-body {
+            color: #999;
+        }
+
+        .modal-confirm .modal-footer {
+            border: none;
+            text-align: center;
+            border-radius: 5px;
+            font-size: 13px;
+            padding: 10px 15px 25px;
+        }
+
+            .modal-confirm .modal-footer a {
+                color: #999;
+            }
+
+        .modal-confirm .icon-box {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+            border-radius: 50%;
+            z-index: 9;
+            text-align: center;
+            border: 3px solid #f15e5e;
+        }
+
+            .modal-confirm .icon-box i {
+                color: #f15e5e;
+                font-size: 46px;
+                display: inline-block;
+                margin-top: 13px;
+            }
+
+        .modal-confirm .btn, .modal-confirm .btn:active {
+            color: #fff;
+            border-radius: 4px;
+            background: #60c7c1;
+            text-decoration: none;
+            transition: all 0.4s;
+            line-height: normal;
+            min-width: 120px;
+            border: none;
+            min-height: 40px;
+            border-radius: 3px;
+            margin: 0 5px;
+        }
+
+        .modal-confirm .btn-secondary {
+            background: #c1c1c1;
+        }
+
+            .modal-confirm .btn-secondary:hover, .modal-confirm .btn-secondary:focus {
+                background: #a8a8a8;
+            }
+
+        .modal-confirm .btn-danger {
+            background: #f15e5e;
+        }
+
+            .modal-confirm .btn-danger:hover, .modal-confirm .btn-danger:focus {
+                background: #ee3535;
+            }
+
+    .trigger-btn {
+        display: inline-block;
+        margin: 100px auto;
+    }
+</style>
+<!-- Hiển thị thông báo AlerBox -->
+<div id="AlertContainer" style="position: fixed; top: 50px; right: 40px; z-index: 9999;">
+    @if (TempData["AlertMessage"] != null)
+    {
+        <div id="AlertBox" class="alert alert-dismissible @TempData["AlertType"]" role="alert">
+            <strong>@TempData["Notification"]!</strong>
+            @TempData["AlertMessage"]
+        </div>
+    }
+</div>
+
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Teacher</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/Admin">Home</a></li>
+                        <li class="breadcrumb-item active">Teachers</li>
+                    </ol>
+                </div>
+            </div>
+
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <form method="post" asp-page-handler="LockEmployees">
+            <div class="container-fluid">
+                <!-- Popup create category course-->
+                <div class="row pb-2 mx-2 justify-content-between">
+                    <button class="btn btn-success btn-sm py-2 px-4" type="button" data-toggle="modal" data-target="#createCategoryModal">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <button id="btnBlock" class="btn btn-danger btn-sm py-2 px-4" type="submit" disabled>
+                        <i class="fas fa-lock">
+                        </i>
+                    </button>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+
+                            <!-- /.card-header -->
+                            <div class="card-body">
+
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th> <input type="checkbox" id="selectAllCustomer" /></th>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Title</th>
+                                            <th>TitleOfCourtesy</th>
+                                            <th>DateOfBirth</th>
+                                            <th>HireDate</th>
+                                            <th style="width:50px">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.Employees)
+                                        {
+                                            <tr>
+                                                <td> <input type="checkbox" name="selectedProductIds" value="@item.EmployeeId" /></td>
+                                                <td>@count</td>
+                                                <td>@item.FirstName @item.LastName</td>
+                                                <td>@item.Title</td>
+                                                <td>@item.TitleOfCourtesy</td>
+                                                <td>@item.BirthDate</td>
+                                                <td>@item.HireDate</td>
+                                                <td>
+
+                                                    <a asp-route-Id="@item.EmployeeId" asp-page="Index"><i class="fa fa-edit" style="font-size:16px; margin-left: 10px" data-toggle="modal" data-target="#editCategoryModal" aria-hidden="true"></i></a>
+
+
+                                                    @if (@item.Status == true || item.Status == null)
+                                                    {
+                                                        <a asp-route-Id="@item.EmployeeId" class="btn btn-sm bg-success" asp-route-status="@false" asp-page="Lock">
+                                                            <i class="fas fa-unlock"></i>
+                                                        </a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a asp-route-Id="@item.EmployeeId" class="btn btn-sm bg-danger" asp-route-status="@true" asp-page="Lock">
+                                                            <i class="fas fa-lock"></i>
+                                                        </a>
+                                                    }
+                                                </td>
+                                            </tr>
+                                            count++;
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+</div>
+<div class="modal fade bd-example-modal-lg" id="createCategoryModal" tabindex="-1" role="dialog" aria-labelledby="createCategoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="createCategoryModalLabel">Create a course category</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @Html.ValidationSummary()
+                <form method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-7">
+                                <div class="form-group">
+                                    <label for="firstName">First Name</label>
+                                    <input type="text" class="form-control" id="firstName" placeholder="Enter the First Name" asp-for="Employee.FirstName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Last Name</label>
+                                    <input type="text" class="form-control" id="lastName" placeholder="Enter the Last Name" asp-for="Employee.LastName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Email</label>
+                                    <input type="email" class="form-control" id="lastName" placeholder="Enter the Email" asp-for="Account.Email" required>
+                                </div>
+
+                            </div>
+                            <div class="col-5 d-block">
+                                <div class="text-center">
+                                    <img id="preview" src="Employee.Avatar" class="rounded-circle img-responsive mt-2 ml-20" width="140" height="140" style="display: block; max-width: 140px; max-height: 140px;" />
+                                    <div class="row justify-content-center mt-10">
+                                        <input type="file" id="imageFile" name="imageFile" accept=".jpg, .jpeg, .png" onchange="previewImage(event)" />
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-12 d-flex">
+                                <div class="form-group">
+                                    <label for="hiredate"> HireDate</label>
+                                    <input type="date" class="form-control" id="hiredate" asp-for="Employee.HireDate" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone</label>
+                                    <input type="text" class="form-control" id="phone" placeholder="Enter the phone number" asp-for="Employee.Phone">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 form-group">
+                            <label for="title">Title</label>
+                            <textarea class="form-control" id="title" rows="5" placeholder="Enter the Title" asp-for="Employee.Title"></textarea>
+                        </div>
+                        <div class="col-12 form-group">
+                            <label for="titleofcourtesy">TitleOfCourtesy</label>
+                            <textarea class="form-control" id="titleofcourtesy" rows="5" placeholder="Enter the TitleOfCourtesy" asp-for="Employee.TitleOfCourtesy"></textarea>
+                        </div>
+
+
+                        <div class="col-12 modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-primary" value="Save">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@if (Model.id != 0)
+{
+    <div class="modal fade bd-example-modal-lg" id="editCategoryModal" tabindex="-1" role="dialog" aria-labelledby="editCategoryModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="createCategoryModalLabel">Details of a course category</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @Html.ValidationSummary()
+                    <form method="post" enctype="multipart/form-data" asp-route-employeeId="@Model.Employee.EmployeeId">
+                        <div class="row">
+                            <div class="row">
+                                <div class="col-7">
+                                    <div class="form-group">
+                                        <label for="firstName">First Name</label>
+                                        <input type="text" class="form-control" id="firstName" placeholder="Enter the First Name" asp-for="Employee.FirstName" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="lastName">Last Name</label>
+                                        <input type="text" class="form-control" id="lastName" placeholder="Enter the Last Name" asp-for="Employee.LastName" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="lastName">Email</label>
+                                        <input type="email" class="form-control" id="lastName" placeholder="Enter the Email" asp-for="Account.Email" readonly required>
+                                    </div>
+
+                                </div>
+                                <div class="col-5 d-block">
+                                    <div class="text-center">
+                                        <img id="preview1" src="@Model.Employee.Avatar" class="rounded-circle img-responsive mt-2 ml-20" width="140" height="140" style="display: block; max-width: 140px; max-height: 140px;" />
+                                        <div class="row justify-content-center mt-10">
+                                            <input type="file" id="imageFile" name="imageFile" accept=".jpg, .jpeg, .png" onchange="previewImage(event)" />
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-12 d-flex">
+                                    <div class="form-group">
+                                        <label for="hiredate"> HireDate</label>
+                                        <input type="date" class="form-control" id="hiredate" asp-for="Employee.HireDate" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone">Phone</label>
+                                        <input type="text" class="form-control" id="phone" placeholder="Enter the phone number" asp-for="Employee.Phone">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 form-group">
+                                <label for="title">Title</label>
+                                <textarea class="form-control" id="title" rows="5" placeholder="Enter the Title" asp-for="Employee.Title"></textarea>
+                            </div>
+                            <div class="col-12 form-group">
+                                <label for="titleofcourtesy">TitleOfCourtesy</label>
+                                <textarea class="form-control" id="titleofcourtesy" rows="5" placeholder="Enter the TitleOfCourtesy" asp-for="Employee.TitleOfCourtesy"></textarea>
+                            </div>
+
+
+                            <div class="col-12 modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <input type="submit" class="btn btn-primary" value="Save">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div id="ConfirmDeleteModal" class="modal fade">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <form method="get" asp-page="Index">
+                <div class="modal-header flex-column">
+                    <div class="icon-box">
+                        <i class="material-icons">&#xE5CD;</i>
+                    </div>
+                    <h4 class="modal-title w-100">Are you sure?</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Do you really want to change status these records?</p>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <input type="hidden" id="Id" name="Id" />
+                    <input type="hidden" id="status" name="status" />
+                    <button type="submit" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Accept</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function previewImage(event) {
+        var input = event.target;
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                var preview = document.getElementById('preview');
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+                preview1.src = e.target.result;
+                preview1.style.display = 'block';
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    function openDeleteModal(element) {
+        var categoryId = element.getAttribute('data-employeeId');
+        document.getElementById('Id').value = categoryId;
+
+        var status = element.getAttribute('data-status');
+        document.getElementById('status').value = status;
+    }
+    $(document).ready(function () {
+        $('form').submit(function (e) {
+            e.preventDefault();
+
+            var selectedProductIds = $('input[name="selectedProductIds"]:checked')
+                .map(function () {
+                    return parseInt($(this).val()); // Chuyển đổi giá trị sang kiểu số nguyên
+                })
+                .get();
+
+            if (selectedProductIds.length > 0) {
+                var form = $(this);
+                var url = '@Url.Page("Admin/Customers")?pagenumber=' + pageNumber;
+                var returnUrl = window.location.href; // Lấy đường dẫn trang hiện tại
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    traditional: true, // Sử dụng kiểu truyền thống để truyền mảng
+                    data: { selectedProductIds: selectedProductIds },
+                    success: function (response) {
+                        // Xử lý phản hồi thành công
+                        console.log(response);
+                        window.location.href = response; // Chuyển hướng đến trang được trả về
+                    },
+
+                });
+            }
+        });
+    });
+
+</script>

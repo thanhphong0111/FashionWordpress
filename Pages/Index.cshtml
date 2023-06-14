@@ -1,0 +1,292 @@
+﻿@page
+@model Group1_CourseOnline.Pages.IndexModel
+@{
+    ViewData["Title"] = "Home";
+    Layout = "~/Pages/Shared/_Layout2.cshtml";
+    int count = 0;
+}
+<section class="popular-course-area section-gap mt-1 p-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+
+                <nav class="navbar navbar-expand-lg bg-light">
+                    <div class="navbar-toggler btn btn-primary" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+                         aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+                    </div>
+                    <!-- Collapsible content -->
+                    <div class="collapse navbar-collapse " id="basicExampleNav">
+                        <!-- Links -->
+                        <ul class="navbar-nav d-block">
+                            <form>
+                                <a class="list-group-item list-group-item-action w-100 px-3 border-0 text-bold" id="list-home-list"
+                                   data-mdb-toggle="list" role="tab" aria-controls="list-home" asp-route-category="0" asp-page="Course">All Course</a>
+
+                                @foreach (var item in Model.Categories)
+                                {
+                                    <a class="list-group-item list-group-item-action px-3 border-0  text-bold" id="list-home-list"
+                                   data-mdb-toggle="list" role="tab" aria-controls="list-home" asp-route-category="@item.CategoryId" asp-page="Course">@item.CategoryName</a>
+
+                                }
+                                <a class="list-group-item list-group-item-action w-100 px-3 border-0  text-bold" id="list-home-list"
+                                   data-mdb-toggle="list" role="tab" aria-controls="list-home">Technology News</a>
+
+                                <a class="list-group-item list-group-item-action w-100 px-3 border-0  text-bold" id="list-home-list"
+                                   data-mdb-toggle="list" role="tab" aria-controls="list-home">Share</a>
+
+                            </form>
+
+                        </ul>
+                        <!-- Links -->
+
+                    </div>
+                </nav>
+
+
+
+            </div>
+            <div class="col-9">
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+
+                    <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        @for (int i = 1; i < Model.NewsInBanner.Count(); i++)
+                        {
+                            <li data-target="#carouselExampleIndicators" data-slide-to="@i"></li>
+
+                        }
+                    </ol>
+                    <div class="carousel-inner">
+                        @foreach (var item in Model.News)
+                        {
+                            @if (item.CategoryNewId == 3)
+                            {
+                                if (count == 0)
+                                {
+
+                                    <div class="carousel-item active">
+                                        <img class="d-block w-100" src="@item.NewsImage" style="height:400px" alt="...">
+                                        <div class="carousel-caption d-none d-md-block bg-dark">
+                                            <a href="@Url.Page("BlogDetail", new { id = item.NewsId})">   <h3 class="text-danger text-bold">@item.NewsTitle</h3></a>
+                                            <p> @item.NewsHeading</p>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+
+                                    <div class="carousel-item">
+                                        <img class="d-block w-100" src="@item.NewsImage" style="height:400px" alt="...">
+                                        <div class="carousel-caption d-none d-md-block bg-dark">
+                                            <h3 class="text-danger text-bold">@item.NewsTitle</h3>
+                                            <p> @item.NewsHeading</p>
+                                        </div>
+                                    </div>
+                                }
+                                count++;
+
+
+                            }
+                        }
+
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="row d-flex justify-content-center mt-3">
+            <div class="menu-content pb-70 col-lg-8">
+                <div class="title text-center">
+                    <h1 class="mb-10">Popular Courses we offer</h1>
+                    <p>There is a moment in the life of any aspiring.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="active-popular-carusel">
+
+                @foreach (var item in ViewBag.product)
+                {
+                    <div class="card single-popular-carusel">
+                        <div class=card-img thumb-wrap relative">
+                            <div class="thumb relative">
+                                <div class="overlay overlay-bg"></div>
+                                <a asp-route-productId="@item.ProductId" asp-page="CourseDetails"><img class="img-fluid" src="@item.Image" alt=""></a>
+                            </div>
+
+                        </div>
+                        <div class="card-body">
+
+                            <div class="text-wrap thumb relative" style="height:100px;">
+                                <a asp-route-productId="@item.ProductId" asp-page="CourseDetails"> <h4 class="text-uppercase text-3xl text-dark">@item.ProductName</h4></a>
+                            </div>
+
+                            <div>
+                                By<a href="#"> @item.Employee.FirstName@item.Employee.LastName</a>
+                                <hr>
+
+                                <div class="d-flex justify-content-between">
+                                    <p><span class="lnr lnr-users"></span> 355 <span class="lnr lnr-bubble"></span> @item.Cmt </p>
+                                    <h5 class="text-success"style="margin-top:2px">$ @item.UnitPrice</h5>
+                                    
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                }
+
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="menu-content pb-70 col-lg-8">
+                <div class="title text-center">
+                    <h1 class="mb-10">Free Courses we offer</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="active-popular-carusel">
+                @foreach (var item in ViewBag.FreeProduct)
+                {
+                    <div class="card single-popular-carusel">
+                        <div class=card-img thumb-wrap relative">
+                            <div class="thumb relative">
+                                <div class="overlay overlay-bg"></div>
+                                <img class="img-fluid" src="@item.Image" alt="">
+                            </div>
+
+                        </div>
+                        <div class="card-body">
+
+                            <div class="text-wrap thumb relative" style="height:100px;">
+                                <a asp-route-productId="@item.ProductId" asp-page="CourseDetails"> <h4 class="text-uppercase text-3xl text-dark">@item.ProductName</h4></a>
+
+                            </div>
+
+                            <div>
+                                By<a href="#"> @item.Employee.FirstName@item.Employee.LastName</a>
+                                <hr>
+
+                                <div class="d-flex justify-content-between">
+                                    <p><span class="lnr lnr-users"></span> 355  | <span class="lnr lnr-bubble"></span> @item.Cmt   | <span class="lnr lnr-eye"> @item.Views</span></p>
+                                    <h5 class="text-success">Free</h5>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- End popular-course Area -->
+<!-- Start review Area -->
+<section class="review-area section-gap relative">
+    <div class="overlay overlay-bg"></div>
+    <div class="container">
+        <div class="row mt-4 mb-4">
+            <div class="active-review-carusel">
+                @foreach (var item in ViewBag.Comments)
+                {
+                    <div class="single-review item">
+                        <div class="title justify-content-start d-flex">
+                            <div class="col-4 text-center">
+                                <div class="mb-1">
+                                    <img src="@item.Image" class="img-thumbnail rounded-circle" />
+
+                                </div>
+
+                                <a href="#"><h4>@item.FirstName @item.LastName</h4></a>
+                            </div>
+                            <div class="col-8">
+                                <div class="star">
+                                    @for (int a = 1; a <= 5; a++)
+                                    {
+                                        if (a <= item.Rating)
+                                        {
+                                            <span class="fa fa-star checked"></span>
+                                        }
+                                        else
+                                        {
+
+                                            <span class="fa fa-star"></span>
+                                        }
+
+                                    }
+                                    <p>
+                                        @item.Content
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                }
+
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End review Area -->
+<!-- Start blog Area -->
+<section class="blog-area section-gap" id="blog">
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="menu-content pb-70 col-lg-8">
+                <div class="title text-center">
+                    <h1 class="mb-10">Latest posts from our Blog</h1>
+                    <p>In the history of modern astronomy there is.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var item in Model.News)
+            {
+                @if (item.CategoryNewId == 1)
+                {
+                    <div class="col-lg-3 col-md-6 single-blog">
+                        <div class="thumb">
+                            <img class="img-fluid" src="@item.NewsImage" alt="">
+                        </div>
+                        <p class="meta">@item.CreateDate.ToString("dd MMM, yyyy")  |  By <a href="#">@item.Employee.FirstName @item.Employee.LastName</a></p>
+                        <a href="@Url.Page("BlogDetail", new { id = item.NewsId})">
+                            <h5>@item.NewsTitle</h5>
+                        </a>
+                        <p>
+                            @item.NewsHeading
+                        </p>
+                        <a href="@Url.Page("BlogDetail", new { id = item.NewsId})" class="details-btn d-flex justify-content-center align-items-center">
+                            <span class="details">Details</span>
+                            <span class="lnr lnr-arrow-right"></span>
+                        </a>
+                    </div>
+                }
+
+
+            }
+        </div>
+    </div>
+</section>
+<!-- End blog Area -->

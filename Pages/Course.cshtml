@@ -1,0 +1,130 @@
+﻿@page
+@model Group1_CourseOnline.Pages.CourseModel
+@{
+    Layout = "~/Pages/Shared/_Layout2.cshtml";
+}
+<section class="popular-courses-area section-gap courses-page">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-3">
+                <nav class="navbar navbar-expand-lg bg-light">
+                    <div class="navbar-toggler btn btn-primary" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+                         aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+                    </div>
+                    <!-- Collapsible content -->
+                    <div class="collapse navbar-collapse " id="basicExampleNav">
+                        <!-- Links -->
+                        <ul class="navbar-nav d-block">
+                            <form>
+                                <a class="list-group-item list-group-item-action w-100 px-3 border-0 text-bold" id="list-home-list"
+                                   data-mdb-toggle="list" role="tab" aria-controls="list-home" asp-route-category="0">All Course</a>
+
+                               @foreach (var item in Model.Categories){
+                                   var url = Url.Action("OnGet", new { category = item.CategoryId, categoryName = item.CategoryName });
+                                   <a class="list-group-item list-group-item-action px-3 border-0  text-bold" id="list-home-list" href="@url" data-mdb-toggle="list" role="tab" aria-controls="list-home">@item.CategoryName</a>
+                                    }
+                                <a class="list-group-item list-group-item-action w-100 px-3 border-0  text-bold" id="list-home-list"
+                                   data-mdb-toggle="list" role="tab" aria-controls="list-home">Technology News</a>
+
+                                <a class="list-group-item list-group-item-action w-100 px-3 border-0  text-bold" id="list-home-list"
+                                   data-mdb-toggle="list" role="tab" aria-controls="list-home">Share</a>
+
+                            </form>
+
+                        </ul>
+                        <!-- Links -->
+
+                    </div>
+                </nav>
+            </div>
+            <div class="col-9 mt-5">
+
+                <div class="row">
+                    @foreach (var item in ViewBag.products)
+                    {
+                        <div class="single-popular-carusel col-lg-4 col-md-6">
+
+                            <div class="card single-popular-carusel">
+                                <div class=card-img thumb-wrap relative">
+                                    <div class="thumb relative">
+                                        <div class="overlay overlay-bg"></div>
+                                        <a asp-route-productid="@item.ProductId" asp-page="CourseDetails"> <img class="img-fluid" src="@item.Image" alt=""></a>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+
+                                    <div class="text-wrap thumb relative" style="height:100px;">
+                                        <a asp-route-productid="@item.ProductId" asp-page="CourseDetails"> <h4 class="text-uppercase text-3xl text-dark">@item.ProductName</h4></a>
+                                    </div>
+
+                                    <div>
+                                        By<a href="#"> @item.Employee.FirstName@item.Employee.LastName</a>
+                                        <hr>
+
+                                        <div class="d-flex justify-content-between">
+                                            @if (@item.UnitPrice != 0)
+                                            {
+                                                <p><span class="lnr lnr-users"></span> 355  | <span class="lnr lnr-bubble"></span> @item.Cmt   | <span class="lnr lnr-eye"> @item.Views</span></p>
+
+                                                <h5 class="text-success" style="margin-top:2px">$ @item.UnitPrice</h5>
+                                            }
+                                            else
+                                            {
+                                                <p><span class="lnr lnr-users"></span> 355  | <span class="lnr lnr-bubble"></span> @item.Cmt   | <span class="lnr lnr-eye"> @item.Views</span></p>
+
+                                                <h5 class="text-success" style="margin-top:2px">Free</h5>
+
+                                            }
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    }
+                </div>
+
+                <nav class="blog-pagination justify-content-center d-flex">
+                    <ul class="pagination">
+
+                        <li class="page-item">
+                            <a asp-route-category="@Model.catid" asp-route-pagenumber="@(Model.pageNumber-1)" class="page-link" aria-label="Previous">
+                                <span aria-hidden="true">
+                                    <span class="lnr lnr-chevron-left"></span>
+                                </span>
+                            </a>
+                        </li>
+                        @for (int i = 1; i <= Model.totalPage; i++)
+                        {
+                            if (i == Model.pageNumber)
+                            {
+                                <li class="page-item active"><a asp-route-category="@Model.catid" asp-route-pagenumber="@i" class="page-link" asp-page="Course">@i</a></li>
+                            }
+                            else
+
+                            {
+                                <li class="page-item"><a asp-route-category="@Model.catid" asp-route-pagenumber="@i" class="page-link" asp-page="Course">@i</a></li>
+
+                            }
+                        }
+                        <li class="page-item">
+                            <a asp-route-category="@Model.catid" asp-route-pagenumber="@(Model.pageNumber+1)" class="page-link" aria-label="Next">
+                                <span aria-hidden="true">
+                                    <span class="lnr lnr-chevron-right"></span>
+                                </span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </nav>
+
+            </div>
+        </div>
+
+
+
+    </div>
+</section>

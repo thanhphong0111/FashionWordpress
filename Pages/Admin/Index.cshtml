@@ -1,0 +1,730 @@
+﻿@page
+@model Group1_CourseOnline.Pages.Admin.IndexModel
+@{
+    Layout = "~/Pages/Shared/_Layout1.cshtml";
+}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Dashboard</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/Admin/Index">Home</a></li>
+                        <li class="breadcrumb-item active">Dashboard v1</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <!-- Small boxes (Stat box) -->
+            <div class="row">
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-primary">
+                        <div class="inner">
+                            <h3>@Model.NewOrders</h3>
+                            <p>New Orders</p>
+                            @if (Model.PerOrder < 100)
+                            {
+                                <p><a class="text-danger"> <i class="fa fa-arrow-down text-danger"></i>@Model.PerOrder.ToString("F2") %</a>  compared to yesterday</p>
+                            }
+                            else
+                            {
+                                <p><a class="text-white"><i class="fa fa-arrow-up text-success"></i>@{
+                                            float result = Model.PerOrder - 100;
+                                        } @result.ToString("F2") %</a>  compared to yesterday</p>
+                            }
+
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-bag"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-success">
+                        <div class="inner">
+                            <h3>@Model.SalesRevenue <sup style="font-size: 20px">$</sup></h3>
+
+                            <p>Sales Revenue</p>
+                            @if (Model.PerSalesRevenue < 100)
+                            {
+                                <p><a class="text-danger"><i class="fa fa-arrow-down text-danger"></i>@Model.PerSalesRevenue.ToString("F2") %</a>  compared to yesterday</p>
+                            }
+                            else
+                            {
+                                <p> <a class="text-success"><i class="fa fa-arrow-up text-success"></i>@(Model.PerSalesRevenue - 100) %</a> compared to yesterday</p>
+                            }
+
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-money-bill"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-warning">
+                        <div class="inner">
+                            <h3>@Model.NewUser</h3>
+
+                            <p>User Registrations</p>
+                            @if (Model.PerNewUser < 100)
+                            {
+                                <p><a class="text-danger"><i class="fa fa-arrow-down text-danger"></i>@Model.PerNewUser..ToString("F2") %</a>  compared to yesterday</p>
+                            }
+                            else
+                            {
+                                <p> <a class="text-success"><i class="fa fa-arrow-up text-success"></i>@(Model.PerNewUser - 100) %</a> compared to yesterday</p>
+                            }
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-person-add"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-danger">
+                        <div class="inner">
+                            <h3>@Model.AvgRate</h3>
+
+                            <p> Average Rating Today</p>
+
+                            <p>@Model.ytdAvgRate Average Rating Yesterday</p>
+
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-pie-graph"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+            </div>
+            <!-- /.row -->
+            <!-- Main row -->
+            <div class="row">
+                <!-- Left col -->
+                <section class="col-lg-8 connectedSortable">
+                    <!-- Custom tabs (Charts with tabs)-->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-chart-pie mr-1"></i>
+                                Sales
+                            </h3>
+                            <div class="card-tools">
+                                <ul class="nav nav-pills ml-auto">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Orders</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#sales-chart" data-toggle="tab">Income</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div><!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="tab-content p-0">
+                                <!-- Morris chart - Sales -->
+                                <div class="chart tab-pane active" id="revenue-chart" style="position: relative; height: 370px;">
+                                    <div class="d-flex">
+                                        <p class="d-flex flex-column">
+                                            <span class="text-bold text-lg">@Model.TotalSales</span>
+                                            <span>Orders Over Time</span>
+                                        </p>
+                                        <p class="ml-auto d-flex flex-column text-right">
+                                            @if (Model.percentage < 0)
+                                            {
+                                                <span class="text-danger">
+
+                                                    <i class="fas fa-arrow-down"></i> @Model.percentage.ToString("F2") %
+
+
+                                                </span>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-success">
+
+                                                    <i class="fas fa-arrow-up"></i> @Model.percentage.ToString("F2") %
+
+
+                                                </span>
+                                            }
+
+                                            <span class="text-muted">Since Last Year</span>
+                                        </p>
+                                    </div>
+                                    <div class="position-relative mb-4">
+                                        <canvas id="comparisonChart" height="110"></canvas>
+                                    </div>
+
+                                </div>
+                                <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 370px;">
+                                    <div class="d-flex">
+                                        <p class="d-flex flex-column">
+                                            <span class="text-bold text-lg">$ @Model.TotalProfit</span>
+                                            <span>Income Over Time</span>
+                                        </p>
+                                        <p class="ml-auto d-flex flex-column text-right">
+                                            @if (Model.percentage < 0)
+                                            {
+                                                <span class="text-danger">
+
+                                                    <i class="fas fa-arrow-down"></i> @Model.incomePercentage.ToString("F2") %
+
+
+                                                </span>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-success">
+
+                                                    <i class="fas fa-arrow-up"></i> @Model.incomePercentage.ToString("F2") %
+
+
+                                                </span>
+                                            }
+
+                                            <span class="text-muted">Since Last Year</span>
+                                        </p>
+                                    </div>
+                                    <div class="position-relative mb-4">
+                                        <canvas id="myChart" height="110"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- /.card-body -->
+                    </div>
+                    <div class="card">
+                        <div class="card-header border-0">
+                            <h3 class="card-title">
+                                <i class="fas fa-th mr-1"></i>
+                                Sales Graph
+                            </h3>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn bg-info btn-sm" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn bg-info btn-sm" data-card-widget="remove">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <canvas class="chart" id="salesChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></canvas>
+                        </div>
+                        <!-- /.card-body -->
+                        <!-- /.card-footer -->
+                    </div>
+                    <!-- /.card -->
+                </section>
+                <!-- /.Left col -->
+                <!-- right col (We are only adding the ID to make the widgets sortable)-->
+                <section class="col-lg-4 connectedSortable">
+
+                    <div class="card info-box mb-3 bg-info">
+                        <div class="card-header border-0 d-flex">
+                        </div>
+                        <div class="d-flex justify-content-between ">
+                            <div class="d-flex">
+                                <span class="info-box-icon"><i class="fas fa-user-circle"></i></span>
+                                <span class="info-box-text">Total Customer</span>
+                            </div>
+                            <div class="">
+                                <span class="info-box-number mr-2">@Model.TotalCus</span>
+                            </div>
+
+                        </div>
+
+                        <!-- /.info-box-content -->
+                    </div>
+                    <div class="card info-box mb-3 bg-danger">
+                        <div class="card-header border-0 d-flex">
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex">
+                                <span class="info-box-icon"><i class="fas fa-money-bill"></i></span>
+                                <span class="info-box-text">Total Orders</span>
+                            </div>
+                            <div class="">
+                                <span class="info-box-number mr-2">@Model.TotalSales</span>
+                            </div>
+
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <div class="card info-box mb-3 bg-success">
+                        <div class="card-header border-0 d-flex">
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex">
+                                <span class="info-box-icon"><i class="fas fa-eye"></i></span>
+                                <span class="info-box-text">Total Blog View</span>
+                            </div>
+                            <div class="">
+                                <span class="info-box-number mr-2">@Model.TotalBlogView</span>
+                            </div>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <div class="card info-box mb-3 bg-warning">
+                        <div class="card-header border-0 d-flex">
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex">
+                                <span class="info-box-icon"><i class="fas fa-eye"></i></span>
+                                <span class="info-box-text">Total Product View</span>
+                            </div>
+                            <div class="">
+                                <span class="info-box-number mr-2">@Model.TotalProductView</span>
+                            </div>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <div class="card info-box mb-3 bg-primary">
+                        <div class="card-header border-0 d-flex">
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex">
+                                <span class="info-box-icon"><i class="fas fa-comment"></i></span>
+                                <span class="info-box-text">Total Comment</span>
+                            </div>
+                            <div class="">
+                                <span class="info-box-number mr-2">@Model.TotalComment</span>
+                            </div>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <div class="card direct-chat direct-chat-warning">
+                        <div class="card-header">
+                            <h3 class="card-title">Direct Chat</h3>
+
+                            <div class="card-tools">
+                                <span title="3 New Messages" class="badge badge-warning">3</span>
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-tool" title="Contacts" data-widget="chat-pane-toggle">
+                                    <i class="fas fa-comments"></i>
+                                </button>
+                                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <!-- Conversations are loaded here -->
+                            <div class="direct-chat-messages">
+                                <!-- Message. Default to the left -->
+                                <div class="direct-chat-msg">
+                                    <div class="direct-chat-infos clearfix">
+                                        <span class="direct-chat-name float-left">Alexander Pierce</span>
+                                        <span class="direct-chat-timestamp float-right">23 Jan 2:00 pm</span>
+                                    </div>
+                                    <!-- /.direct-chat-infos -->
+                                    <img class="direct-chat-img" src="~/img/Customer/avtl.png" alt="message user image">
+                                    <!-- /.direct-chat-img -->
+                                    <div class="direct-chat-text">
+                                        Is this template really for free? That's unbelievable!
+                                    </div>
+                                    <!-- /.direct-chat-text -->
+                                </div>
+                                <!-- /.direct-chat-msg -->
+                                <!-- Message to the right -->
+                                <div class="direct-chat-msg right">
+                                    <div class="direct-chat-infos clearfix">
+                                        <span class="direct-chat-name float-right">Sarah Bullock</span>
+                                        <span class="direct-chat-timestamp float-left">23 Jan 2:05 pm</span>
+                                    </div>
+                                    <!-- /.direct-chat-infos -->
+                                    <img class="direct-chat-img" src="~/img/Customer/avtl.png" alt="message user image">
+                                    <!-- /.direct-chat-img -->
+                                    <div class="direct-chat-text">
+                                        You better believe it!
+                                    </div>
+                                    <!-- /.direct-chat-text -->
+                                </div>
+                                <!-- /.direct-chat-msg -->
+                                <!-- Message. Default to the left -->
+                                <div class="direct-chat-msg">
+                                    <div class="direct-chat-infos clearfix">
+                                        <span class="direct-chat-name float-left">Alexander Pierce</span>
+                                        <span class="direct-chat-timestamp float-right">23 Jan 5:37 pm</span>
+                                    </div>
+                                    <!-- /.direct-chat-infos -->
+                                    <img class="direct-chat-img" src="~/img/Customer/avtl.png" alt="message user image">
+                                    <!-- /.direct-chat-img -->
+                                    <div class="direct-chat-text">
+                                        Working with AdminLTE on a great new app! Wanna join?
+                                    </div>
+                                    <!-- /.direct-chat-text -->
+                                </div>
+                                <!-- /.direct-chat-msg -->
+                                <!-- Message to the right -->
+                                <div class="direct-chat-msg right">
+                                    <div class="direct-chat-infos clearfix">
+                                        <span class="direct-chat-name float-right">Sarah Bullock</span>
+                                        <span class="direct-chat-timestamp float-left">23 Jan 6:10 pm</span>
+                                    </div>
+                                    <!-- /.direct-chat-infos -->
+                                    <img class="direct-chat-img" src="~/img/Customer/avtl.png" alt="message user image">
+                                    <!-- /.direct-chat-img -->
+                                    <div class="direct-chat-text">
+                                        I would love to.
+                                    </div>
+                                    <!-- /.direct-chat-text -->
+                                </div>
+                                <!-- /.direct-chat-msg -->
+
+                            </div>
+                            <!--/.direct-chat-messages-->
+                            <!-- Contacts are loaded here -->
+                            <div class="direct-chat-contacts">
+                                <ul class="contacts-list">
+                                    <li>
+                                        <a href="#">
+                                            <img class="contacts-list-img" src="dist/img/user1-128x128.jpg" alt="User Avatar">
+
+                                            <div class="contacts-list-info">
+                                                <span class="contacts-list-name">
+                                                    Count Dracula
+                                                    <small class="contacts-list-date float-right">2/28/2015</small>
+                                                </span>
+                                                <span class="contacts-list-msg">How have you been? I was...</span>
+                                            </div>
+                                            <!-- /.contacts-list-info -->
+                                        </a>
+                                    </li>
+                                    <!-- End Contact Item -->
+                                    <li>
+                                        <a href="#">
+                                            <img class="contacts-list-img" src="dist/img/user7-128x128.jpg" alt="User Avatar">
+
+                                            <div class="contacts-list-info">
+                                                <span class="contacts-list-name">
+                                                    Sarah Doe
+                                                    <small class="contacts-list-date float-right">2/23/2015</small>
+                                                </span>
+                                                <span class="contacts-list-msg">I will be waiting for...</span>
+                                            </div>
+                                            <!-- /.contacts-list-info -->
+                                        </a>
+                                    </li>
+                                    <!-- End Contact Item -->
+                                    <li>
+                                        <a href="#">
+                                            <img class="contacts-list-img" src="dist/img/user3-128x128.jpg" alt="User Avatar">
+
+                                            <div class="contacts-list-info">
+                                                <span class="contacts-list-name">
+                                                    Nadia Jolie
+                                                    <small class="contacts-list-date float-right">2/20/2015</small>
+                                                </span>
+                                                <span class="contacts-list-msg">I'll call you back at...</span>
+                                            </div>
+                                            <!-- /.contacts-list-info -->
+                                        </a>
+                                    </li>
+                                    <!-- End Contact Item -->
+                                    <li>
+                                        <a href="#">
+                                            <img class="contacts-list-img" src="dist/img/user5-128x128.jpg" alt="User Avatar">
+
+                                            <div class="contacts-list-info">
+                                                <span class="contacts-list-name">
+                                                    Nora S. Vans
+                                                    <small class="contacts-list-date float-right">2/10/2015</small>
+                                                </span>
+                                                <span class="contacts-list-msg">Where is your new...</span>
+                                            </div>
+                                            <!-- /.contacts-list-info -->
+                                        </a>
+                                    </li>
+                                    <!-- End Contact Item -->
+                                    <li>
+                                        <a href="#">
+                                            <img class="contacts-list-img" src="dist/img/user6-128x128.jpg" alt="User Avatar">
+
+                                            <div class="contacts-list-info">
+                                                <span class="contacts-list-name">
+                                                    John K.
+                                                    <small class="contacts-list-date float-right">1/27/2015</small>
+                                                </span>
+                                                <span class="contacts-list-msg">Can I take a look at...</span>
+                                            </div>
+                                            <!-- /.contacts-list-info -->
+                                        </a>
+                                    </li>
+                                    <!-- End Contact Item -->
+                                    <li>
+                                        <a href="#">
+                                            <img class="contacts-list-img" src="dist/img/user8-128x128.jpg" alt="User Avatar">
+
+                                            <div class="contacts-list-info">
+                                                <span class="contacts-list-name">
+                                                    Kenneth M.
+                                                    <small class="contacts-list-date float-right">1/4/2015</small>
+                                                </span>
+                                                <span class="contacts-list-msg">Never mind I found...</span>
+                                            </div>
+                                            <!-- /.contacts-list-info -->
+                                        </a>
+                                    </li>
+                                    <!-- End Contact Item -->
+                                </ul>
+                                <!-- /.contacts-list -->
+                            </div>
+                            <!-- /.direct-chat-pane -->
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+                            <form action="#" method="post">
+                                <div class="input-group">
+                                    <input type="text" name="message" placeholder="Type Message ..." class="form-control">
+                                    <span class="input-group-append">
+                                        <button type="button" class="btn btn-warning">Send</button>
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- /.card-footer-->
+                    </div>
+                    <!-- Map card -->
+                    <!-- /.card -->
+                    <!-- solid sales graph -->
+                    <!-- /.card -->
+                    <!-- Calendar -->
+                    <!-- /.card -->
+                </section>
+                <!-- right col -->
+            </div>
+            <!-- /.row (main row) -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<script>
+
+    // Data for the chart (replace with your own data)
+
+    @{
+
+        var order12 = Model.orders12months;
+        var old12 = Model.Oldorders12months;
+        var profit2022 = Model.profitOrders2022;
+        var profit2023 = Model.profitOrders2023;
+        var profit6month = Model.profitOrders6Months;
+        var order6month = Model.Orders6Months;
+        int[] month = new int[6];
+        int count = 0;
+        for (int i = DateTime.Now.Month - 5; i <= DateTime.Now.Month; i++)
+        {
+            month[count] = i;
+            count++;
+        }
+
+
+    }
+
+                                                        var salesData = {
+        labels: [@month[0], @month[1], @month[2], @month[3], @month[4], @month[5]],
+        datasets: [
+            {
+                type: 'line',
+                label: 'Sales',
+                data: [@profit6month[6], @profit6month[5], @profit6month[4], @profit6month[3], @profit6month[2], @profit6month[1]],
+                backgroundColor: 'rgba(40, 167, 69, 0.2)',
+                borderColor: 'rgba(40, 167, 69, 1)',
+                borderWidth: 1,
+                yAxisID: 'left-y-axis',
+                lineTension: 0.5
+
+            },
+            {
+                type: 'bar',
+                label: 'Orders',
+                data: [@order6month[month[0]], @order6month[month[1]], @order6month[month[2]], @order6month[month[3]], @order6month[month[4]], @order6month[month[5]]],
+                backgroundColor: 'rgba(30, 144, 255, 0.2)',
+                borderColor: 'rgba(30, 144, 255, 1)',
+                borderWidth: 1,
+                yAxisID: 'right-y-axis'
+            }
+        ]
+    };
+
+    var salesChart = new Chart(document.getElementById('salesChart'), {
+        type: 'bar',
+        data: salesData,
+        options: {
+            responsive: true,
+            scales: {
+                y: [
+                    {
+                        id: 'left-y-axis',
+                        position: 'left',
+                        beginAtZero: true,
+                        ticks: {
+                            color: 'rgba(40, 167, 69, 1)'
+                        }
+                    },
+                    {
+                        id: 'right-y-axis',
+                        position: 'right',
+                        beginAtZero: true,
+                        ticks: {
+                            color: 'rgba(30, 144, 255, 1)'
+                        }
+                    }
+                ],
+                x: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: 'Month',
+                        font: {
+                            size: 14,
+                            weight: 'bold'
+                        }
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        font: {
+                            weight: 'bold'
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // Configuration options for the chart
+
+
+    // Create the chart
+    //var salesChart = new Chart(document.getElementById('salesChart'), {
+    //    type: 'line',
+    //    data: salesData,
+    //    options: chartOptions
+    //});
+
+    var labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+    // Tạo biểu đồ
+    var ctx = document.getElementById('comparisonChart').getContext('2d');
+    var comparisonChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Last Year',
+                    data: [@old12[1], @old12[2], @old12[3], @old12[4], @old12[5], @old12[6], @old12[7], @old12[8], @old12[9], @old12[10], @old12[11], @old12[12]],
+                    borderColor: "rgb(0, 123, 255)", // Màu primary của Bootstrap
+                    backgroundColor: "rgb(0, 123, 255)",
+                    borderWidth: 1
+                },
+                {
+                    label: 'This Year',
+                    data: [@order12[1], @order12[2], @order12[3], @order12[4], @order12[5], @order12[6], @order12[7], @order12[8], @order12[9], @order12[10], @order12[11], @order12[12]],
+                    borderColor: "rgb(40, 167, 69)", // Màu success của Bootstrap
+                    backgroundColor: "rgb(40, 167, 69)",
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {
+            scales: {
+                x: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: "Month"
+                    }
+                },
+                y: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: "Orders"
+                    }
+                }
+            }
+        }
+    });
+    // Lấy thẻ canvas từ HTML
+    var chartCanvas = document.getElementById("myChart");
+
+    // Tạo dữ liệu cho biểu đồ
+    var chartData = {
+        labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'], // Các tháng từ 1 đến 12
+        datasets: [
+            {
+                label: "Last Year",
+                data: [@profit2022[1], @profit2022[2], @profit2022[3], @profit2022[4], @profit2022[5], @profit2022[6], @profit2022[7], @profit2022[8], @profit2022[9], @profit2022[10], @profit2022[11], @profit2022[12]], // Dữ liệu số đơn hàng năm 2022
+                borderColor: "rgb(0, 123, 255)",
+                fill: false,
+                lineTension: 0.5
+            },
+            {
+                label: "This Year",
+                data: [@profit2023[1], @profit2023[2], @profit2023[3], @profit2023[4], @profit2023[5], @profit2023[6], @profit2023[7], @profit2023[8], @profit2023[9], @profit2023[10], @profit2023[11], @profit2023[12]], // Dữ liệu số đơn hàng năm 2023
+                borderColor: "rgb(40, 167, 69)",
+                fill: false,
+                lineTension: 0.5
+            }
+        ]
+    };
+
+    // Tạo biểu đồ
+    var myChart = new Chart(chartCanvas, {
+        type: "line",
+        data: chartData,
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: "Month"
+                    }
+                },
+                y: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: "Income"
+                    }
+                }
+            }
+        }
+    });
+
+</script>
+
+<!-- AdminLTE JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.1.0/js/adminlte.min.js"></script>
+

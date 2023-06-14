@@ -1,0 +1,160 @@
+﻿@page
+@model Group1_CourseOnline.Pages.Admin.Customers.IndexModel
+@{
+    Layout = "~/Pages/Shared/_Layout1.cshtml";
+    int count = 1;
+}
+<!-- Hiển thị thông báo AlerBox -->
+<div id="AlertContainer" style="position: fixed; top: 50px; right: 40px; z-index: 9999;">
+    @if (TempData["AlertMessage"] != null)
+    {
+        <div id="AlertBox" class="alert alert-dismissible @TempData["AlertType"]" role="alert">
+            <strong>@TempData["Notification"]!</strong>
+            @TempData["AlertMessage"]
+        </div>
+    }
+</div>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Customer Management</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/Admin/Index">Home</a></li>
+                        <li class="breadcrumb-item active">Customer</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="card card-solid">
+            <div class="card-body pb-0">
+
+                <form id="productForm" method="post" asp-page-handler="DeleteProducts">
+                    <p class="dark">@ViewBag.error</p>
+                    <div class="container-fluid">
+
+                        <div class="row pb-2 mx-2 justify-content-between">
+
+                            <button class="btn btn-success btn-sm  py-2  px-4" type="submit">
+                                <i class="fas fa-plus">
+                                </i>
+                            </button>
+                            <div>
+                                <button id="btnBlock" class="btn btn-primary btn-sm py-2 px-4" type="submit" disabled>
+                                    <i class="fas fa-lock">
+                                    </i>
+                                </button>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+
+
+                                    <!-- /.card-header -->
+                                    <div class="card-body">
+                                        <table id="example1" class="table table-bordered table-striped">
+
+                                            <thead>
+                                                <tr>
+
+                                                   
+                                                    <th><input type="checkbox" id="selectAllCustomer" /></th>
+                                                    <th>#</th>
+                                                    <th>Customer Name</th>
+                                                    <th>Phone</th>
+                                                    <th>Address</th>
+                                                    <th>DateOfBirth</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model.Customers)
+                                                {
+                                                    <tr>
+                                                        <td> <input type="checkbox" name="selectedProductIds" value="@item.CustomerId" /></td>
+                                                        <td>@count</td>
+                                                        <td>@item.FirstName @item.LastName</td>
+                                                        <td>@item.Phone</td>
+                                                        <td>@item.Address</td>
+                                                        <td>@item.BirthDate</td>
+                                                        <td>
+                                                            @if (@item.Status == true)
+                                                            {
+                                                                <a class="btn btn-sm bg-success" asp-route-id="@item.CustomerId" asp-route-status="@false">
+                                                                    <i class="fas fa-unlock"></i>
+                                                                </a>
+                                                            }
+                                                            else
+                                                            {
+                                                                <a class="btn btn-sm bg-danger" asp-route-id="@item.CustomerId" asp-route-status="@true">
+                                                                    <i class="fas fa-lock"></i>
+                                                                </a>
+                                                            }
+
+                                                            <a class="btn btn-sm btn-primary" asp-route-id="@item.CustomerId" asp-page="Details" >
+                                                                <i class="fas fa-user"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    count++;
+                                                }
+
+
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+    </section>
+    <!-- /.content -->
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('form').submit(function (e) {
+            e.preventDefault();
+
+            var selectedProductIds = $('input[name="selectedProductIds"]:checked')
+                .map(function () {
+                    return parseInt($(this).val()); // Chuyển đổi giá trị sang kiểu số nguyên
+                })
+                .get();
+
+            if (selectedProductIds.length > 0) {
+                var form = $(this);
+                var url = '@Url.Page("Admin/Customers")?pagenumber=' + pageNumber;
+                var returnUrl = window.location.href; // Lấy đường dẫn trang hiện tại
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    traditional: true, // Sử dụng kiểu truyền thống để truyền mảng
+                    data: { selectedProductIds: selectedProductIds },
+                    success: function (response) {
+                        // Xử lý phản hồi thành công
+                        console.log(response);
+                        window.location.href = response; // Chuyển hướng đến trang được trả về
+                    },
+
+                });
+            }
+        });
+    });
+
+
+</script>
